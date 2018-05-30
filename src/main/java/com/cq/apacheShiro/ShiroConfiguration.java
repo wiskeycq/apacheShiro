@@ -52,7 +52,7 @@ public class ShiroConfiguration {
     @Bean("authRealm")
     public AuthRealm authRealm(@Qualifier("credentialMatcher") CredentialMatcher credentialMatcher) {
         AuthRealm authRelam = new AuthRealm();
-        authRelam.setCredentialsMatcher(credentialMatcher);
+        authRelam.setCredentialsMatcher(credentialMatcher);//使用自定义密码校验，也可以使用默认的，一般密码都是md5+salt进行加密的
         return authRelam;
     }
 
