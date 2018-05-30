@@ -32,7 +32,11 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/index", "authc");//其中DefaultFilter类中列出了所有shiro默认的拦截器
         filterChainDefinitionMap.put("/login", "anon");
         filterChainDefinitionMap.put("/loginUser", "anon");
-        filterChainDefinitionMap.put("/admin", "roles[admin]");
+        //filterChainDefinitionMap.put("/admin","user");//user是判断当前有没登录，访问/admin路径，如果没有登录就跳转到登录页面，如果登录则跳转到/admin
+        filterChainDefinitionMap.put("/admin", "roles[admin]");//访问/admin路径，如果没登录，则跳到登录页面。已登录得，如果这个用户有admin得角色，则跳到对应页面；如果没admin角色，则跳转到未授权页面。
+        filterChainDefinitionMap.put("/edit","perms[edit]");//访问/edit路径时判断是不是有edit的权限，如果有则跳转，没有到未授权页面。
+        filterChainDefinitionMap.put("/druid/**","anon");
+        filterChainDefinitionMap.put("/**","user");
         shiroFilter.setFilterChainDefinitionMap(filterChainDefinitionMap);
 
         return shiroFilter;

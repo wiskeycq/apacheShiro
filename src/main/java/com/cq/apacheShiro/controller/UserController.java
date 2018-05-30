@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpSession;
 
 @Controller
-public class TestController {
+public class UserController {
 
     @RequestMapping("/login")
     public String login() {
@@ -28,7 +28,7 @@ public class TestController {
     public String logout() {
         Subject subject = SecurityUtils.getSubject();
         if (subject != null) {
-            subject.logout();
+            subject.logout();//退出登录，清空session缓存
         }
         return "login";
     }
@@ -59,7 +59,7 @@ public class TestController {
         try {
             subject.login(token);
             User user = (User) subject.getPrincipal();
-            session.setAttribute("user", user);
+            session.setAttribute("user", user);//登录成功后把用户信息存储在session缓存中，已供认证使用
             return "redirect:/index";
         } catch (Exception e) {
             return "login";
